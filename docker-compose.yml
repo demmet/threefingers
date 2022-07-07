@@ -14,9 +14,9 @@ services:
   web:
     extends: app
     ports:
-      - 4000:4000
+      - 42069:42069
     expose:
-      - 4000
+      - 42069
     command: bash -c "while [ true ]; do sleep 10; done"
     environment:
       - MIX_ENV=dev
@@ -31,7 +31,7 @@ services:
   # tests:
   #   extends: app
   #   ports:
-  #     - 4002:4002
+  #     - 42269:42269
   #   command: mix do deps.get, coveralls, credo --strict, format --check-formatted
   #   environment:
   #     - MIX_ENV=test
