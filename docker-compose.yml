@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - ./_build:/app/_build
+    stdin_open: true
+    tty: true
+
+  web:
+    extends: app
+    ports:
+      - 4000:4000
+    expose:
+      - 4000
+    command: bash -c "while [ true ]; do sleep 10; done"
+    environment:
+      - MIX_ENV=dev
+      # - PG_USERNAME=postgres
+      # - PG_PASSWORD=postgres
+      # - PG_HOST=db
+      # - PG_DBPORT=5432
+      # - PG_DBNAME=threefingers_dev
+    # depends_on:
+    #   - db
+
+  # tests:
+  #   extends: app
+  #   ports:
+  #     - 4002:4002
+  #   command: mix do deps.get, coveralls, credo --strict, format --check-formatted
+  #   environment:
+  #     - MIX_ENV=test
+    #   - PG_USERNAME=postgres
+    #   - PG_PASSWORD=postgres
+    #   - PG_HOST=db
+    #   - PG_DBPORT=5432
+    #   - PG_DBNAME=threefingers_test
+    # depends_on:
+    #   - db
+
+# networks:
+#   default:
+#   threefingers:
+#     name: threefingers
