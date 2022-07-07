@@ -36,4 +36,9 @@ defmodule Cards do
     {river, _deck} = deal(deck, 1)
     {[sb, bb, utg, utg2, utg3, hijack, cutoff, button], [flop, turn, river]}
   end
+
+  def save(deck, filename) do
+    binary = :erlang.term_to_binary(deck)
+    File.write(filename, binary)
+  end
 end
