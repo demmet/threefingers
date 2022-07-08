@@ -3,7 +3,7 @@ defmodule Identicon do
   Documentation for `Identicon`.
   """
  
-  def main(input) do
+  def generate(input) do
     input
     |> hash_input
     |> pick_color
