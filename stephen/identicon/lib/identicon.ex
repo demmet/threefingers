@@ -31,11 +31,18 @@ defmodule Identicon do
     grid =
       hex
       |> Enum.chunk_every(3)
+      |> remove_leftover
       |> Enum.map(&mirror_row/1)
       |> List.flatten
       |> Enum.with_index
 
     %Identicon.Image{image | grid: grid}
+  end
+
+  def remove_leftover(rows) do
+    Enum.filter rows, fn row ->
+      row |> length == 3
+    end
   end
 
   def mirror_row(row) do
