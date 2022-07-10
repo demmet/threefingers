@@ -14,17 +14,18 @@ services:
   web:
     extends: app
     ports:
-      - 42069:42069
+      - 4200:4200
     expose:
-      - 42069
+      - 4200
     command: bash -c "while [ true ]; do sleep 10; done"
     environment:
       - MIX_ENV=dev
       - PG_USERNAME=postgres
       - PG_PASSWORD=postgres
       - PG_HOST=db
-      - PG_DBPORT=5532
+      - PG_DBPORT=5432
       - PG_DBNAME=threefingers_dev
+      - PORT=4200
     depends_on:
       - db
 
@@ -33,9 +34,9 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
     ports:
-      - 5543:5543
+      - 5432:5432
     expose:
-      - 5543
+      - 5432
 
 # tests:
 #   extends: app
