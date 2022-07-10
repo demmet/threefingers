@@ -10,16 +10,16 @@ RUN apt-get update && \
 WORKDIR /app
 
 # install phoenix packages
-# RUN mix local.hex --force
-# RUN mix local.rebar --force
-# RUN mix archive.install hex phx_new 1.5.6
+RUN mix local.hex --force
+RUN mix local.rebar --force
+RUN mix archive.install hex phx_new
 
 # install nodejs
-# RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-#   apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+  apt-get install -y nodejs
 
 # copy files
-# COPY . /app
+COPY . /app
 
 # compile application
 # RUN mix deps.get

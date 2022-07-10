@@ -20,29 +20,37 @@ services:
     command: bash -c "while [ true ]; do sleep 10; done"
     environment:
       - MIX_ENV=dev
-      # - PG_USERNAME=postgres
-      # - PG_PASSWORD=postgres
-      # - PG_HOST=db
-      # - PG_DBPORT=5432
-      # - PG_DBNAME=threefingers_dev
-    # depends_on:
-    #   - db
+      - PG_USERNAME=postgres
+      - PG_PASSWORD=postgres
+      - PG_HOST=db
+      - PG_DBPORT=5532
+      - PG_DBNAME=threefingers_dev
+    depends_on:
+      - db
 
-  # tests:
-  #   extends: app
-  #   ports:
-  #     - 42269:42269
-  #   command: mix do deps.get, coveralls, credo --strict, format --check-formatted
-  #   environment:
-  #     - MIX_ENV=test
-    #   - PG_USERNAME=postgres
-    #   - PG_PASSWORD=postgres
-    #   - PG_HOST=db
-    #   - PG_DBPORT=5432
-    #   - PG_DBNAME=threefingers_test
-    # depends_on:
-    #   - db
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5543:5543
+    expose:
+      - 5543
 
+# tests:
+#   extends: app
+#   ports:
+#     - 42269:42269
+#   command: mix do deps.get, coveralls, credo --strict, format --check-formatted
+#   environment:
+#     - MIX_ENV=test
+  #   - PG_USERNAME=postgres
+  #   - PG_PASSWORD=postgres
+  #   - PG_HOST=db
+  #   - PG_DBPORT=5432
+  #   - PG_DBNAME=threefingers_test
+  # depends_on:
+  #   - db
 # networks:
 #   default:
 #   threefingers:
