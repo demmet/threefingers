@@ -24,7 +24,7 @@ services:
       - PG_PASSWORD=postgres
       - PG_HOST=db
       - PG_DBPORT=5420
-      - PG_DBNAME=threefingers_dev
+      - PG_DBNAME=discuss_dev
       - PORT=4200
     depends_on:
       - db
@@ -49,10 +49,10 @@ services:
   #   - PG_PASSWORD=postgres
   #   - PG_HOST=db
   #   - PG_DBPORT=5420
-  #   - PG_DBNAME=threefingers_test
+  #   - PG_DBNAME=discuss_test
   # depends_on:
   #   - db
 # networks:
 #   default:
-#   threefingers:
-#     name: threefingers
+#   discuss:
+#     name: discuss
