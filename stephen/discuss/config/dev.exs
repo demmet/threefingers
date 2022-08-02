@@ -4,7 +4,7 @@ import Config
 config :discuss, Discuss.Repo,
   username: System.get_env("PG_USERNAME", "postgres"),
   password: System.get_env("PG_PASSWORD", "postgres"),
-  database: System.get_env("PG_DBNAME", "discuss_dev"),
+  database: System.get_env("PG_DBNAME", "postgres"),
   hostname: System.get_env("PG_HOST", "localhost"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
