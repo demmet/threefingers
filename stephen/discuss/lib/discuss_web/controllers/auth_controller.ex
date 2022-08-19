@@ -4,6 +4,7 @@ defmodule Discuss.AuthController do
 
   def callback(conn, params) do
     IO.inspect(conn.assigns)
+    IO.inspect("++++++")
     IO.inspect(params)
   end
 end
