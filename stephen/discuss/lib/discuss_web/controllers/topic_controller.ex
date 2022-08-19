@@ -13,7 +13,7 @@ defmodule DiscussWeb.TopicController do
     topic_params
     |> Discuss.create_topic()
     |> case do
-      {:ok, topic} ->
+      {:ok, _topic} ->
         conn
         |> put_flash(:info, "Topic Created")
         |> redirect(to: Routes.topic_path(conn, :index))
@@ -35,13 +35,30 @@ defmodule DiscussWeb.TopicController do
     |> Discuss.get_topic()
     |> Discuss.update_topic(topic_params)
     |> case do
-      {:ok, topic} ->
+      {:ok, _topic} ->
         conn
         |> put_flash(:info, "Topic Updated")
         |> redirect(to: Routes.topic_path(conn, :index))
 
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
+    end
+  end
+
+  def delete(conn, %{"id" => topic_id}) do
+    topic_id
+    |> Discuss.get_topic()
+    |> Discuss.delete_topic()
+    |> case do
+      {:ok, _topic} ->
+        conn
+        |> put_flash(:info, "Topic Deleted")
+        |> redirect(to: Routes.topic_path(conn, :index))
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Topic Was Not Deleted")
+        |> redirect(to: Routes.topic_path(conn, :index))
     end
   end
 end
