@@ -3,7 +3,7 @@ defmodule Discuss.Auth do
   Auth is the context that deal with authentication.
   """
 
-  alias Discuss.User
+  alias Discuss.Auth.User
   alias Discuss.Repo
 
   @doc """
@@ -35,13 +35,11 @@ defmodule Discuss.Auth do
   Creates a user if doesn't exist, updates if exists.
   """
   def upsert_user(attrs \\ %{}) do
-    changeset = %User{} |> change_user(attrs)
-
     User
-    |> Repo.get_by(email: changeset.changes.email)
+    |> Repo.get_by(email: attrs[:email])
     |> case do
       nil ->
-        Repo.insert(changeset)
+        create_user(attrs)
 
       user ->
         {:ok, user}
