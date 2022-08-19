@@ -48,17 +48,11 @@ defmodule DiscussWeb.TopicController do
 
   def delete(conn, %{"id" => topic_id}) do
     topic_id
-    |> Discuss.delete_topic()
-    |> case do
-      {:ok, _topic} ->
-        conn
-        |> put_flash(:info, "Topic Deleted")
-        |> redirect(to: Routes.topic_path(conn, :index))
+    |> Discuss.get_topic!()
+    |> Discuss.delete_topic!()
 
-      {:error, _changeset} ->
-        conn
-        |> put_flash(:error, "Topic Was Not Deleted")
-        |> redirect(to: Routes.topic_path(conn, :index))
-    end
+    conn
+    |> put_flash(:info, "Topic Deleted")
+    |> redirect(to: Routes.topic_path(conn, :index))
   end
 end

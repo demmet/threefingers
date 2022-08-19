@@ -44,6 +44,15 @@ defmodule Discuss do
   end
 
   @doc """
+  Returns a topic.
+  Raises an error if it could not be fetched.
+  """
+  def get_topic!(topic_id) do
+    Topic
+    |> Repo.get!(topic_id)
+  end
+
+  @doc """
   Updates a topic.
   """
   def update_topic(%Topic{} = topic, attrs \\ %{}) do
@@ -55,9 +64,8 @@ defmodule Discuss do
   @doc """
   Deletes a topic.
   """
-  def delete_topic(topic_id) do
-    topic_id
-    |> Discuss.get_topic()
-    |> Repo.delete()
+  def delete_topic!(%Topic{} = topic) do
+    topic
+    |> Repo.delete!()
   end
 end
