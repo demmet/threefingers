@@ -26,6 +26,8 @@ services:
       - PG_DBPORT=5420
       - PG_DBNAME=discuss_dev
       - PORT=4200
+      - GITHUB_CLIENT_ID=b5f9d386ec912359536b
+      - GITHUB_CLIENT_SECRET=209e2d06667b275d6fd4ac9324d9c6bb01cf0b26
     depends_on:
       - db
 
