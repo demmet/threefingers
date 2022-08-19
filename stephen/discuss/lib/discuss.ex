@@ -19,19 +19,36 @@ defmodule Discuss do
   end
 
   @doc """
+  Creates a topic changeset.
+  """
+  def change_topic(topic \\ %Topic{}, attrs \\ %{}) do
+    topic
+    |> Topic.changeset(attrs)
+  end
+
+  @doc """
   Creates a topic.
   """
   def create_topic(attrs \\ %{}) do
     %Topic{}
-    |> Topic.changeset(attrs)
+    |> change_topic(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Creates a topic changeset.
+  Returns a topic.
   """
-  def change_topic(attrs \\ %{}) do
-    %Topic{}
-    |> Topic.changeset(attrs)
+  def get_topic(topic_id) do
+    Topic
+    |> Repo.get(topic_id)
+  end
+
+  @doc """
+  Creates a topic.
+  """
+  def update_topic(%Topic{} = topic, attrs \\ %{}) do
+    topic
+    |> change_topic(attrs)
+    |> Repo.update()
   end
 end
