@@ -32,6 +32,23 @@ defmodule Discuss.Auth do
   end
 
   @doc """
+  Creates a user if doesn't exist, updates if exists.
+  """
+  def upsert_user(attrs \\ %{}) do
+    changeset = %User{} |> change_user(attrs)
+
+    User
+    |> Repo.get_by(email: changeset.changes.email)
+    |> case do
+      nil ->
+        Repo.insert(changeset)
+
+      user ->
+        {:ok, user}
+    end
+  end
+
+  @doc """
   Returns a user.
   """
   def get_user(user_id) do
