@@ -2,8 +2,6 @@ defmodule DiscussWeb.Plugs.SetUser do
   use DiscussWeb, :controller
 
   alias Discuss.Auth
-  alias Discuss.Auth.User
-  alias Discuss.Repo
 
   def init(_params), do: nil
 

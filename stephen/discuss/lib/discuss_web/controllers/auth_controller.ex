@@ -4,7 +4,7 @@ defmodule DiscussWeb.AuthController do
 
   alias Discuss.Auth
 
-  def callback(conn, params) do
+  def callback(conn, _params) do
     signin(conn)
   end
 
