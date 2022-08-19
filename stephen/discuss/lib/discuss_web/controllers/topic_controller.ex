@@ -15,7 +15,8 @@ defmodule DiscussWeb.TopicController do
     |> Repo.insert
     |> case do
       {:ok, topic} -> IO.inspect(topic)
-      {:error, changeset} -> IO.inspect(changeset)
+      {:error, changeset} ->
+        render(conn, "new.html", changeset: changeset)
     end
     # changeset = Topic.changeset(%Tipoc{}, topic)
 
