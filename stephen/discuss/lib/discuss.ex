@@ -55,8 +55,9 @@ defmodule Discuss do
   @doc """
   Deletes a topic.
   """
-  def delete_topic(%Topic{} = topic) do
-    topic
+  def delete_topic(topic_id) do
+    topic_id
+    |> Discuss.get_topic()
     |> Repo.delete()
   end
 end

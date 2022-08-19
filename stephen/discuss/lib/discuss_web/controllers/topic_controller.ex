@@ -48,7 +48,6 @@ defmodule DiscussWeb.TopicController do
 
   def delete(conn, %{"id" => topic_id}) do
     topic_id
-    |> Discuss.get_topic()
     |> Discuss.delete_topic()
     |> case do
       {:ok, _topic} ->
