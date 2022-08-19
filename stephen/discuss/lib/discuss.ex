@@ -14,7 +14,7 @@ defmodule Discuss do
   Lists all topics.
   """
   def list_topics() do
-    %Topic{}
+    Topic
     |> Repo.all()
   end
 
@@ -25,5 +25,13 @@ defmodule Discuss do
     %Topic{}
     |> Topic.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates a topic changeset.
+  """
+  def change_topic(attrs \\ %{}) do
+    %Topic{}
+    |> Topic.changeset(attrs)
   end
 end
