@@ -44,11 +44,19 @@ defmodule Discuss do
   end
 
   @doc """
-  Creates a topic.
+  Updates a topic.
   """
   def update_topic(%Topic{} = topic, attrs \\ %{}) do
     topic
     |> change_topic(attrs)
     |> Repo.update()
+  end
+
+  @doc """
+  Deletes a topic.
+  """
+  def delete_topic(%Topic{} = topic) do
+    topic
+    |> Repo.delete()
   end
 end
