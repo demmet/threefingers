@@ -8,6 +8,12 @@ defmodule DiscussWeb.AuthController do
     signin(conn)
   end
 
+  def signout(conn, _params) do
+    conn
+    |> configure_session(drop: true)
+    |> redirect(to: Routes.topic_path(conn, :index))
+  end
+
   defp signin(%{assigns: %{ueberauth_auth: auth}} = conn) do
     %{
       email: auth.info.email,
