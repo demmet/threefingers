@@ -11,6 +11,14 @@ defmodule Discuss do
   alias Discuss.Repo
 
   @doc """
+  Lists all topics.
+  """
+  def list_topics() do
+    %Topic{}
+    |> Repo.all()
+  end
+
+  @doc """
   Creates a topic.
   """
   def create_topic(attrs \\ %{}) do
