@@ -1,8 +1,6 @@
 defmodule DiscussWeb.Plugs.RequireAuth do
   use DiscussWeb, :controller
 
-  alias Discuss.Auth
-
   def init(_params), do: nil
 
   def call(conn, _params) do
