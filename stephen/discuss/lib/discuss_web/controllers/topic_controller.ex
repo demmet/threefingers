@@ -4,9 +4,14 @@ defmodule DiscussWeb.TopicController do
   alias Discuss.Repo
 
   plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
+  plug :check_topic_owner when action in [:update, :edit, :delete]
 
   def index(conn, _params) do
     render(conn, "index.html", topics: Discuss.list_topics())
+  end
+
+  def show(conn, %{"id" => topic_id}) do
+    render(conn, "show.html", topic: Discuss.get_topic!(topic_id))
   end
 
   def new(conn, _params) do
@@ -58,5 +63,16 @@ defmodule DiscussWeb.TopicController do
     conn
     |> put_flash(:info, "Topic Deleted")
     |> redirect(to: Routes.topic_path(conn, :index))
+  end
+
+  def check_topic_owner(%{params: %{"id" => topic_id}} = conn, _params) do
+    if Discuss.get_topic(topic_id).user_id == conn.assigns.user.id do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You cannot edit that")
+      |> redirect(to: Routes.topic_path(conn, :index))
+      |> halt()
+    end
   end
 end
