@@ -1,0 +1,18 @@
+defmodule DiscussWeb.Plugs.RequireAuth do
+  use DiscussWeb, :controller
+
+  alias Discuss.Auth
+
+  def init(_params), do: nil
+
+  def call(conn, _params) do
+    if conn.assigns[:user] do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in.")
+      |> redirect(to: Routes.topic_path(conn, :index))
+      |> halt()
+    end
+  end
+end
