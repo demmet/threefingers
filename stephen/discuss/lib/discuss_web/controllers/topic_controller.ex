@@ -1,6 +1,8 @@
 defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
 
+  alias Discuss.Repo
+
   plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
 
   def index(conn, _params) do
@@ -12,8 +14,8 @@ defmodule DiscussWeb.TopicController do
   end
 
   def create(conn, %{"topic" => topic_params}) do
-    topic_params
-    |> Discuss.create_topic()
+    conn.assigns.user
+    |> Discuss.create_topic(topic_params)
     |> case do
       {:ok, _topic} ->
         conn

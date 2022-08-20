@@ -7,8 +7,11 @@ defmodule Discuss do
   if it comes from the database, an external API or others.
   """
 
-  alias Discuss.Topic
+  import Ecto
+
+  alias Discuss.Auth.User
   alias Discuss.Repo
+  alias Discuss.Topic
 
   @doc """
   Lists all topics.
@@ -24,6 +27,16 @@ defmodule Discuss do
   def change_topic(topic \\ %Topic{}, attrs \\ %{}) do
     topic
     |> Topic.changeset(attrs)
+  end
+
+  @doc """
+  Creates a topic.
+  """
+  def create_topic(%User{} = user, %{} = attrs) do
+    user
+    |> build_assoc(:topics)
+    |> change_topic(attrs)
+    |> Repo.insert()
   end
 
   @doc """
