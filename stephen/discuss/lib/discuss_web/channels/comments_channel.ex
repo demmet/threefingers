@@ -9,7 +9,7 @@ defmodule DiscussWeb.CommentsChannel do
         |> String.to_integer()
         |> Discuss.get_topic()
 
-      {:ok, %{}, socket}
+      {:ok, %{}, assign(socket, :topic, topic)}
     else
       {:error, %{reason: "unauthorized"}}
     end
@@ -30,8 +30,16 @@ defmodule DiscussWeb.CommentsChannel do
     {:noreply, socket}
   end
 
-  def handle_in(wut, %{"content" => content}, socket) do
-    {:noreply, socket}
+  def handle_in("comments:add", %{"content" => _content} = comment_params, socket) do
+    socket.assigns.topic
+    |> Discuss.create_comment(comment_params)
+    |> case do
+      {:ok, _comment} ->
+        {:reply, :ok, socket}
+
+      {:error, changeset} ->
+        {:reply, {:error, %{errors: changeset}}, socket}
+    end
   end
 
   # Add authorization logic here as required.
