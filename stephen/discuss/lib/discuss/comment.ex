@@ -2,7 +2,7 @@ defmodule Discuss.Comment do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "topics" do
+  schema "comments" do
     field :content, :string
     belongs_to :user, Discuss.Auth.User
     belongs_to :topic, Discuss.Topic

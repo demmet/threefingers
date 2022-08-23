@@ -11,6 +11,7 @@ defmodule Discuss do
 
   alias Discuss.Auth.User
   alias Discuss.Repo
+  alias Discuss.Comment
   alias Discuss.Topic
 
   @doc """
@@ -79,6 +80,76 @@ defmodule Discuss do
   """
   def delete_topic!(%Topic{} = topic) do
     topic
+    |> Repo.delete!()
+  end
+
+
+  @doc """
+  Lists all comments.
+  """
+  def list_comments() do
+    Comment
+    |> Repo.all()
+  end
+
+  @doc """
+  Creates a comment changeset.
+  """
+  def change_comment(comment \\ %Comment{}, attrs \\ %{}) do
+    comment
+    |> Comment.changeset(attrs)
+  end
+
+  @doc """
+  Creates a comment.
+  """
+  def create_comment(%Topic{} = topic, %{} = attrs) do
+    topic
+    |> build_assoc(:comments)
+    |> change_comment(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Creates a comment.
+  """
+  def create_comment(attrs \\ %{}) do
+    %Comment{}
+    |> change_comment(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Returns a comment.
+  """
+  def get_comment(comment_id) do
+    Comment
+    |> Repo.get(comment_id)
+  end
+
+  @doc """
+  Returns a comment.
+  Raises an error if it could not be fetched.
+  """
+  def get_comment!(comment_id) do
+    Comment
+    |> Repo.get!(comment_id)
+  end
+
+  @doc """
+  Updates a comment.
+  """
+  def update_comment(%Comment{} = comment, attrs \\ %{}) do
+    comment
+    |> change_comment(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a comment.
+  """
+  def delete_comment!(%Comment{} = comment) do
+    comment
     |> Repo.delete!()
   end
 end
