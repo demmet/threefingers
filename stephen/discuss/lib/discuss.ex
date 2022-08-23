@@ -106,9 +106,7 @@ defmodule Discuss do
   def create_comment(%Topic{} = topic, user_id, %{} = attrs) do
     topic
     |> build_assoc(:comments, user_id: user_id)
-    |> IO.inspect()
     |> change_comment(attrs)
-    |> IO.inspect()
     |> Repo.insert()
   end
 
