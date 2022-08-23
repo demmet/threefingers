@@ -2,10 +2,9 @@ defmodule DiscussWeb.UserSocket do
   use Phoenix.Socket
 
   channel "comments:*", DiscussWeb.CommentsChannel
-  # get "/comments/:id", CommentController, :join, :handle_in
 
   @impl true
-  def connect(_params, socket, _connect_info) do
+  def connect(%{"token" => token}, socket, _connect_info) do
     {:ok, socket}
   end
 
