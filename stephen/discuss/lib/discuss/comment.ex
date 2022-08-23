@@ -7,7 +7,7 @@ defmodule Discuss.Comment do
     belongs_to :user, Discuss.Auth.User
     belongs_to :topic, Discuss.Topic
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do
