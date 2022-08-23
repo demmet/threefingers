@@ -14,7 +14,7 @@ const createSocket = (topicId) => {
   document.querySelector('button').addEventListener('click', () => {
     const content = document.querySelector('textarea').value
 
-    channel.push('comment:add', { content: content })
+    channel.push('comments:add', { content: content })
   })
 }
 
