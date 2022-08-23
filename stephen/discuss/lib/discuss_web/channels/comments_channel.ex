@@ -35,7 +35,7 @@ defmodule DiscussWeb.CommentsChannel do
 
   def handle_in("comments:add", %{"content" => _content} = comment_params, socket) do
     socket.assigns.topic
-    |> Discuss.create_comment(comment_params)
+    |> Discuss.create_comment(socket.assigns.user_id, comment_params)
     |> case do
       {:ok, comment} ->
         broadcast!(socket, "comments:#{socket.assigns.topic.id}:new", %{comment: comment})
