@@ -1,6 +1,8 @@
 defmodule DiscussWeb.CommentsChannel do
   use DiscussWeb, :channel
 
+  alias Discuss.Repo
+
   @impl true
   def join("comments:" <> topic_id, payload, socket) do
     if authorized?(payload) do
@@ -8,8 +10,9 @@ defmodule DiscussWeb.CommentsChannel do
         topic_id
         |> String.to_integer()
         |> Discuss.get_topic()
+        |> Repo.preload(:comments)
 
-      {:ok, %{}, assign(socket, :topic, topic)}
+      {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
     else
       {:error, %{reason: "unauthorized"}}
     end
