@@ -30,11 +30,7 @@ defmodule DiscussWeb.CommentsChannel do
     {:noreply, socket}
   end
 
-  def handle_in(wut, payload, socket) do
-    IO.puts("+++++")
-    IO.inspect(wut)
-    IO.inspect(payload)
-    IO.inspect(socket)
+  def handle_in(wut, %{"content" => content}, socket) do
     {:noreply, socket}
   end
 
