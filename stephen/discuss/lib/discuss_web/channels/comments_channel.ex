@@ -4,7 +4,7 @@ defmodule DiscussWeb.CommentsChannel do
   @impl true
   def join("comments:lobby", payload, socket) do
     if authorized?(payload) do
-      {:ok, socket}
+      {:ok, %{hey: "there"}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
@@ -22,6 +22,14 @@ defmodule DiscussWeb.CommentsChannel do
   @impl true
   def handle_in("shout", payload, socket) do
     broadcast(socket, "shout", payload)
+    {:noreply, socket}
+  end
+
+  def handle_in(wut, payload, socket) do
+    IO.puts("+++++")
+    IO.inspect(wut)
+    IO.inspect(payload)
+    IO.inspect(socket)
     {:noreply, socket}
   end
 

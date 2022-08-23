@@ -4,8 +4,6 @@ defmodule DiscussWeb.UserSocket do
   channel "comments:*", DiscussWeb.CommentsChannel
   # get "/comments/:id", CommentController, :join, :handle_in
 
-  transport, :websocket, Phoenix.Transports.Websocket
-
   @impl true
   def connect(_params, socket, _connect_info) do
     {:ok, socket}
